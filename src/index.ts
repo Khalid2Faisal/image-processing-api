@@ -1,4 +1,5 @@
 import express from "express";
+import routes from "./routes";
 
 const app = express();
 
@@ -6,9 +7,11 @@ app.get("/", (req, res) => {
   res.status(200).send({ message: "Hello World!" });
 });
 
-const PORT = process.env.PORT || 8080;
+app.use("/api", routes);
 
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`app listening on port ${PORT}!`);
 });
 

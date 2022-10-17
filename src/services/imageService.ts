@@ -1,3 +1,4 @@
+import fs from "fs";
 import sharp from "sharp";
 
 const resizeImage = async (
@@ -17,4 +18,15 @@ const resizeImage = async (
   }
 };
 
-export default { resizeImage };
+const isResized = async (
+  fileName: string,
+  width: number,
+  height: number
+): Promise<boolean> => {
+  // check if the image exist in assets/thumb
+  const imageExist = fs.existsSync(`assets/thumb/${fileName}-${width}x${height}.jpg`);
+  // console.log("Image is already resized before:", imageExist);
+  return imageExist;
+};
+
+export default { resizeImage, isResized };

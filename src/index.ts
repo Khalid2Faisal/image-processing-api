@@ -1,9 +1,9 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import routes from "./routes";
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.status(200).send({ message: "Hello World!" });
 });
 

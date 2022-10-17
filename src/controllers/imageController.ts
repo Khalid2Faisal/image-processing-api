@@ -6,7 +6,20 @@ const resize = async (req: Request, res: Response) => {
   const width = parseInt(req.query.width as string, 10);
   const height = parseInt(req.query.height as string, 10);
 
+  // check if width and height are valid
+  if (Number.isNaN(width) || Number.isNaN(height)) {
+    return res.status(400).send({ message: "Width and height must be a number" });
+  }
+
   try {
+    // sends the image if it is already resized
+    const isResized = await imageService.isResized(filename, width, height);
+    if (isResized) {
+      return res.status(200).sendFile(`assets/thumb/${filename}-${width}x${height}.jpg`, {
+        root: "./",
+      });
+    }
+
     const imagePath = (await imageService.resizeImage(filename, width, height)) as
       | string
       | Error;

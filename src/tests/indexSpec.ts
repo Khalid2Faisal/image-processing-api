@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import supertest from "supertest";
 import app from "../index";
 
